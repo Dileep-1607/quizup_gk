@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../components/appDrawer.dart';
-import '../../components/appbar.dart';
-import '../../components/my_container.dart';
+import 'package:general_knowledge_gk/screens/quiz/quiz_intro.dart';
+import 'package:get/get.dart';
 import '../../components/start_quiz_card.dart';
 
 class QuizSets extends StatefulWidget {
@@ -32,7 +30,7 @@ class _QuizSetsState extends State<QuizSets> {
 
             return InkWell(
               onTap: (){
-
+                Get.to(QuizIntro(QuizAbout: 'About the quiz', QuizDuration: '10', QuizImgUrl: 'fahkfhd', QuizName: 'random', QuizTopics: 'quiz topic', QuizId:'', QuizPrice: '20',));
               },
               child: StartQuizCart(),
             );
