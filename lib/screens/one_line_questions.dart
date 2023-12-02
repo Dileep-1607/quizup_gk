@@ -1,12 +1,13 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:general_knowledge_gk/components/one_line_question_card.dart';
 import 'package:get/get.dart';
 
 import '../components/c_text.dart';
 
 class OneLineQuestions extends StatefulWidget {
-  var questionsCollection;
+  final questionsCollection;
    OneLineQuestions({super.key, required this.questionsCollection});
 
   @override
@@ -42,36 +43,12 @@ class _OneLineQuestionsState extends State<OneLineQuestions> {
                 itemCount: questions.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
 
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CText(text:"Q${index+1}:", fontSize: 16,),
-                            SizedBox(width: 8,),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width-55,
-                              child: Text("${questions[index]["question"]}", style: TextStyle(
-                                fontSize: 16,
-                              ),
-                              textAlign: TextAlign.start,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Text("Answer: ${questions[index]["answer"]}", style: TextStyle(
-                          fontSize: 16,
-                        ),
-                          textAlign: TextAlign.start,
-                        ),
-                      ],
-                    ),
+                    child: OneLineQuestionCard(questions: questions, index: index,),
                   );
                 },);
             }

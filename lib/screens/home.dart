@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:general_knowledge_gk/components/c_text.dart';
 import 'package:general_knowledge_gk/screens/quiz/quiz_categories.dart';
-import 'package:general_knowledge_gk/screens/quiz/quiz_buy.dart';
 import 'package:general_knowledge_gk/screens/quiz_practice.dart';
 import 'package:general_knowledge_gk/screens/sub_category.dart';
 import 'package:get/get.dart';
@@ -101,7 +100,7 @@ class Home extends StatelessWidget {
                           ),
                           child: Row(
                             children: [
-                              Image.asset("assets/images/history.png", height: 40, width: 40,),
+                              Image.asset("assets/images/random.png", height: 40, width: 40,),
                               SizedBox(
                                   width: 90,
                                   child: CText(text:txt("Random Quiz"), fontSize: 18, color: Colors.black54,)),
@@ -129,7 +128,7 @@ class Home extends StatelessWidget {
                           ),
                           child: Row(
                             children: [
-                              Image.asset("assets/images/history.png", height: 40, width: 40,),
+                              Image.asset("assets/images/random.png", height: 40, width: 40,),
                               SizedBox(
                                   width: 80,
                                   child: CText(text:txt("One line random Questions"), fontSize: 17, color: Colors.black54,)),
