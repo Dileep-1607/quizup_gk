@@ -25,8 +25,8 @@ class _OneLineQuestionCardState extends State<OneLineQuestionCard> {
             CText(text:"Q${widget.index+1}:", fontSize: 16,),
             SizedBox(width: 8,),
             SizedBox(
-              width: MediaQuery.of(context).size.width-55,
-              child: Text("${widget.questions[widget.index]["question"]}", style: TextStyle(
+              width: MediaQuery.of(context).size.width-65,
+              child: Text("${widget.questions[widget.index]["question"]}".replaceAll("\n", " "), style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500
               ),
@@ -37,7 +37,7 @@ class _OneLineQuestionCardState extends State<OneLineQuestionCard> {
         ),
         if(showAnswer)
           Padding(
-            padding: const EdgeInsets.only(left: 25, top: 8),
+            padding: const EdgeInsets.only(left: 30, top: 8),
             child: Text("Answer: ${widget.questions[widget.index]["answer"]}", style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -48,7 +48,7 @@ class _OneLineQuestionCardState extends State<OneLineQuestionCard> {
           ),
 
         Padding(
-          padding: const EdgeInsets.only(left: 20, top: 8),
+          padding: const EdgeInsets.only(left: 25, top: 8),
           child: GestureDetector(
             onTap: (){
               setState(() {

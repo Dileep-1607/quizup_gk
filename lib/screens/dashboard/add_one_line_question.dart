@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../components/my_text_field.dart';
-import '../../models/question.dart';
+
 
 class AddOneLineQuestion extends StatefulWidget {
   const AddOneLineQuestion({super.key});
@@ -13,9 +14,27 @@ class AddOneLineQuestion extends StatefulWidget {
 
 class _AddOneLineQuestionState extends State<AddOneLineQuestion> {
 
+  bool isSubmit = false;
   String collectionIndex = "1";
   TextEditingController _questionController = TextEditingController();
   TextEditingController _answerController = TextEditingController();
+  int totalQuestions = 0;
+
+
+  @override
+  void initState() {
+    getLength();
+    super.initState();
+  }
+
+   getLength() async {
+    CollectionReference ref = FirebaseFirestore.instance.collection("one_line_questions")
+        .doc("one_line_questions").collection(collectionIndex);
+    AggregateQuerySnapshot result = await ref.count().get();
+    setState(() {
+      totalQuestions = result.count ;
+    });
+  }
 
 
   @override
@@ -29,14 +48,26 @@ class _AddOneLineQuestionState extends State<AddOneLineQuestion> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("$collectionIndex : "),
+                Text("Collection - $collectionIndex : Questions - $totalQuestions"),
                 SizedBox(height: 15,),
                 Text("Enter Question"),
                 SizedBox(height: 8,),
-                MyTextField(
-                  // height: 50,
-                  width: 340,
-                  controller:_questionController,
+                TextFormField(
+                  controller: _questionController,
+                  cursorColor: Colors.black45,
+                  style: TextStyle(
+                      color: Colors.black54
+                  ),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey.withAlpha(20),
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(12)
+                    ),
+                  ),
+                  maxLines: 4,
+                  minLines: 2,
                 ),
                 SizedBox(height: 15,),
 
@@ -52,20 +83,37 @@ class _AddOneLineQuestionState extends State<AddOneLineQuestion> {
                   alignment: Alignment.center,
                   child: ElevatedButton(
                       onPressed: (){
-                       var _id =  FirebaseFirestore.instance.collection("one_line_questions").id;
-                        try{
-                          FirebaseFirestore.instance.collection("one_line_questions").doc(_id).collection(collectionIndex).add(
-                              {
-                                "question":_questionController.text.trim(),
-                                "answer":_answerController.text.trim()
-                              }
-                          );
+                        getLength();
+                        if(totalQuestions<=50){
+                          Get.snackbar("Alert", "50 Questions completed in this collection. Please increase Collection no", backgroundColor: Colors.white);
                         }
-                        catch(e){
-                          print(e);
-                        }
+                        else if(_questionController.text !='' && _answerController.text !=''){
+                         isSubmit = true;
+                         var _id =  FirebaseFirestore.instance.collection("one_line_questions").id;
+                         try{
+                           FirebaseFirestore.instance.collection("one_line_questions").doc(_id).collection(collectionIndex).add(
+                               {
+                                 "question":_questionController.text.trim(),
+                                 "answer":_answerController.text.trim()
+                               }
+                           );
+                           Get.snackbar("Status", "Question Added");
+                           _questionController.text ='';
+                           _answerController.text ='';
+                         }
+                         catch(e){
+                           print(e);
+                         }
+                         setState(() {
+
+                         });
+                       }
+                       else{
+                         print("Please enter both value");
+                       }
+                       isSubmit = false;
                       },
-                      child:Text("Submit") ),
+                      child:isSubmit ==false? Text("Submit"):CircularProgressIndicator() ),
                 )
               ],
             ),

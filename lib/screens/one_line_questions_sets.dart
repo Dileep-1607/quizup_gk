@@ -1,9 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:general_knowledge_gk/config/remote_config.dart' as CONFIG;
-import '../components/appDrawer.dart';
-import '../components/appbar.dart';
+
 import '../components/my_container.dart';
 import 'one_line_questions.dart';
 

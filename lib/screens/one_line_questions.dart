@@ -43,7 +43,7 @@ class _OneLineQuestionsState extends State<OneLineQuestions> {
                 itemCount: questions.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    margin: EdgeInsets.only(left: 15, top: 10, bottom: 10, right: 8),
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
 
