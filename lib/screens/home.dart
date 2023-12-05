@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:general_knowledge_gk/components/c_text.dart';
 import 'package:general_knowledge_gk/screens/quiz/quiz_categories.dart';
 import 'package:general_knowledge_gk/screens/quiz_practice.dart';
+import 'package:general_knowledge_gk/screens/random_gk/gk_home.dart';
 import 'package:general_knowledge_gk/screens/sub_category.dart';
 import 'package:get/get.dart';
 import '../components/appDrawer.dart';
@@ -54,7 +55,7 @@ class Home extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(width: 10,),
+                    SizedBox(width: 5,),
                     SizedBox(
                       height: 115,
                       child: GestureDetector(
@@ -63,7 +64,7 @@ class Home extends StatelessWidget {
                         },
                         child: MyContainer(
                           ml: 5, pt: 12, pb: 12,
-                          h: 100, w: MediaQuery.of(context).size.width/2.4,
+                          h: 100, w: MediaQuery.of(context).size.width/2.3,
                           color: Colors.green.withAlpha(70),
                           child: Column(
                             children: [
@@ -109,7 +110,7 @@ class Home extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: 10,),
+                    SizedBox(width: 12,),
 
                     /// One line questions with answers ///
                     MyContainer(
@@ -140,6 +141,64 @@ class Home extends StatelessWidget {
                   ],
                 ),
 
+                /// Reading and gk Section ///
+                Row(
+                  children: [
+                    MyContainer(
+                      h: 120, w: MediaQuery.of(context).size.width/2.3,
+                      mb: 15, pl: 10, pr: 10,pt:10, pb:10,
+                      color: Colors.green.withAlpha(70),
+                      child: GestureDetector(
+                       // onTap: ()=>Get.to(QuizCategories()),
+                        child: Container(
+                          padding: EdgeInsets.only(left: 15),
+                          height: 70,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: const BoxDecoration(
+                            color: Colors.white60,
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Row(
+                            children: [
+                              Image.asset("assets/images/random.png", height: 40, width: 40,),
+                              SizedBox(
+                                  width: 90,
+                                  child: CText(text:txt("Reading"), fontSize: 18, color: Colors.black54,)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10,),
+
+                    /// One line questions with answers ///
+                    MyContainer(
+                      h: 120, w: MediaQuery.of(context).size.width/2.3,
+                      mb: 15, pl: 12, pr: 10,pt:10, pb:10,
+                      color: Colors.green.withAlpha(70),
+                      child: GestureDetector(
+                        onTap: ()=>Get.to(GkHome()),
+                        child: Container(
+                          padding: EdgeInsets.only(left: 15),
+                          height: 70,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: const BoxDecoration(
+                            color: Colors.white60,
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Row(
+                            children: [
+                              Image.asset("assets/images/random.png", height: 40, width: 40,),
+                              SizedBox(
+                                  width: 80,
+                                  child: CText(text:txt("Random GK"), fontSize: 17, color: Colors.black54,)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 /// Single categories here///
                 GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),

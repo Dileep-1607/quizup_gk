@@ -15,11 +15,13 @@ Future remoteConfig() async{
   multipleCategories = jsonDecode(remoteConfig.getString("multiple_categories"));
   exams = jsonDecode(remoteConfig.getString("exams"));
   configKeys = jsonDecode(remoteConfig.getString("keys"));
+  OneLineReading = jsonDecode(remoteConfig.getString("one_line_reading"));
 
 }
 
 List<dynamic> currentAffairs = [];
 List<dynamic> singleCategories = [];
+List<dynamic> OneLineReading = [];
 Map<String, dynamic> multipleCategories = {};
 Map<String, dynamic> exams = {};
 Map<String, dynamic> configKeys = {};

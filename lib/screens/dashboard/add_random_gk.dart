@@ -4,38 +4,18 @@ import 'package:get/get.dart';
 
 import '../../components/my_text_field.dart';
 
-
-class AddOneLineQuestion extends StatefulWidget {
-  const AddOneLineQuestion({super.key});
+class AddRandomGk extends StatefulWidget {
+  const AddRandomGk({super.key});
 
   @override
-  State<AddOneLineQuestion> createState() => _AddOneLineQuestionState();
+  State<AddRandomGk> createState() => _AddRandomGkState();
 }
 
-class _AddOneLineQuestionState extends State<AddOneLineQuestion> {
+class _AddRandomGkState extends State<AddRandomGk> {
 
   bool isSubmit = false;
-  String collectionIndex = "1";
   TextEditingController _questionController = TextEditingController();
   TextEditingController _answerController = TextEditingController();
-  int totalQuestions = 0;
-
-
-  @override
-  void initState() {
-    getLength();
-    super.initState();
-  }
-
-   getLength() async {
-    CollectionReference ref = FirebaseFirestore.instance.collection("one_line_questions")
-        .doc(collectionIndex).collection(collectionIndex);
-    AggregateQuerySnapshot result = await ref.count().get();
-    setState(() {
-      totalQuestions = result.count ;
-    });
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +28,7 @@ class _AddOneLineQuestionState extends State<AddOneLineQuestion> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Collection - $collectionIndex : Questions - $totalQuestions"),
+
                 SizedBox(height: 15,),
                 Text("Enter Question"),
                 SizedBox(height: 8,),
@@ -83,34 +63,30 @@ class _AddOneLineQuestionState extends State<AddOneLineQuestion> {
                   alignment: Alignment.center,
                   child: ElevatedButton(
                       onPressed: (){
-                        getLength();
-                        if(totalQuestions==50){
-                          Get.snackbar("Alert", "50 Questions completed in this collection. Please increase Collection no", backgroundColor: Colors.white);
-                        }
-                        else if(_questionController.text !='' && _answerController.text !=''){
-                         isSubmit = true;
-                         try{
-                           FirebaseFirestore.instance.collection("one_line_questions").doc("one_line_questions").collection(collectionIndex).add(
-                               {
-                                 "question":_questionController.text.trim(),
-                                 "answer":_answerController.text.trim()
-                               }
-                           );
-                           Get.snackbar("Status", "Question Added");
-                           _questionController.text ='';
-                           _answerController.text ='';
-                         }
-                         catch(e){
-                           print(e);
-                         }
-                         setState(() {
+                        if(_questionController.text !='' && _answerController.text !=''){
+                          isSubmit = true;
+                          try{
+                            FirebaseFirestore.instance.collection("random_gk").doc("national_park_in_india").collection("national_park_in_india").add(
+                                {
+                                  "question":_questionController.text.trim(),
+                                  "answer":_answerController.text.trim()
+                                }
+                            );
+                            Get.snackbar("Status", "Question Added");
+                            _questionController.text ='';
+                            _answerController.text ='';
+                          }
+                          catch(e){
+                            print(e);
+                          }
+                          setState(() {
 
-                         });
-                       }
-                       else{
-                         print("Please enter both value");
-                       }
-                       isSubmit = false;
+                          });
+                        }
+                        else{
+                          print("Please enter both value");
+                        }
+                        isSubmit = false;
                       },
                       child:isSubmit ==false? Text("Submit"):CircularProgressIndicator() ),
                 )

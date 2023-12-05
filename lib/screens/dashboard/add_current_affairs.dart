@@ -105,8 +105,7 @@ class _AddCurrentAffairsState extends State<AddCurrentAffairs> {
                         }
                         else{
                          try{
-                           String _id = FirebaseFirestore.instance.collection("geography").id;
-                           FirebaseFirestore.instance.collection("geography").doc(_id).collection("universe").add(
+                           FirebaseFirestore.instance.collection("geography").doc("geography").collection("universe").add(
                                Question(
                                  question:_questionController.text.trim(),
                                  options: options,

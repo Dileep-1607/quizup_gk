@@ -28,7 +28,7 @@ class _AddQuestionsState extends State<AddQuestions> {
 
   @override
   void initState() {
-    // dataUpdate();
+     //dataUpdate();
     //myFunction();
     super.initState();
   }
@@ -42,23 +42,19 @@ class _AddQuestionsState extends State<AddQuestions> {
   }
 
     /// This function is use for data arrangement ///
-    //  Future dataUpdate() async {
-    //    var _idd = FirebaseFirestore.instance.collection("sports").id;
-    //   CollectionReference ref = FirebaseFirestore.instance.collection('sports').doc(_idd).collection("");
-    //   QuerySnapshot result = await ref.get();
-    //
-    //   var _id = FirebaseFirestore.instance.collection("current_affairs").id;
-    //
-    //    result.docs.forEach((element) {
-    //      print(element["question"]);
-    //      FirebaseFirestore.instance.collection("current_affairs").doc(_id).collection("").add({
-    //        "question":element["question"],
-    //        "options":element["options"],
-    //        "answer":element["answer"]
-    //      });
-    //    });
-    //   print("done... science");
-    // }
+     Future dataUpdate() async {
+      CollectionReference ref = FirebaseFirestore.instance.collection('computer').doc("computer_fundamental").collection("computer_fundamental");
+      QuerySnapshot result = await ref.get();
+
+       result.docs.forEach((element) {
+         print(element["question"]);
+         FirebaseFirestore.instance.collection("computer").doc("computer").collection("computer_fundamental").add({
+           "question":element["question"],
+           "answer":element["answer"]
+         });
+       });
+      print("done... ");
+    }
 
 
 
