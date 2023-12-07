@@ -17,25 +17,19 @@ class _QuizPracticeState extends State<QuizPractice> {
 late  Color color = Colors.grey.withAlpha(30);
  String _id ='';
 
-@override
-  void initState() {
-   if(widget.subCategory !='')
-   _id = FirebaseFirestore.instance.collection(widget.mainCategory).id;
-     //getLength();
-    super.initState();
-  }
 
-  Future<int> getLength() async {
-    CollectionReference ref;
-  if(widget.subCategory !=''){
-     ref = FirebaseFirestore.instance.collection(widget.mainCategory).doc(_id).collection(widget.subCategory);
-  }
-  else{
-     ref = FirebaseFirestore.instance.collection(widget.mainCategory);
-   }
-    AggregateQuerySnapshot result = await ref.count().get();
-     return (result.count/10).floor();
-  }
+
+  // Future<int> getLength() async {
+  //   CollectionReference ref;
+  // if(widget.subCategory !=''){
+  //    ref = FirebaseFirestore.instance.collection(widget.mainCategory).doc(widget.subCategory).collection(widget.subCategory);
+  // }
+  // else{
+  //    ref = FirebaseFirestore.instance.collection(widget.mainCategory);
+  //  }
+  //   AggregateQuerySnapshot result = await ref.count().get();
+  //    return (result.count/10).floor();
+  // }
 
 
   @override
@@ -44,7 +38,7 @@ late  Color color = Colors.grey.withAlpha(30);
       appBar: AppBar(title: Text(txt(widget.subCategory==''?widget.mainCategory:widget.subCategory), style: Theme.of(context).textTheme.titleMedium,),),
         body: StreamBuilder(
         stream: widget.subCategory!=""?FirebaseFirestore.instance.collection(widget.mainCategory)
-            .doc(_id).collection(widget.subCategory).snapshots()
+            .doc(widget.subCategory).collection(widget.subCategory).snapshots()
             :FirebaseFirestore.instance.collection(widget.mainCategory).snapshots(),
            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting){

@@ -44,7 +44,7 @@ class _QuestionCardState extends State<QuestionCard> {
                 children: [
                   SizedBox(
                       width: MediaQuery.of(context).size.width-95,
-                      child: Text("Q ${widget.index+1}: ${convert?convertedString:widget.questions["question"]}", style: TextStyle(fontSize: 18, color: Colors.black54),)),
+                      child: Text("Q ${widget.index+1}: ${convert?convertedString:widget.questions["question"]}".replaceAll("\n", " "), style: TextStyle(fontSize: 18, color: Colors.black54),)),
                   SizedBox(width: 5,),
                   InkWell(
                       onTap: (){

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:general_knowledge_gk/components/c_text.dart';
-import 'package:general_knowledge_gk/screens/quiz_practice.dart';
 import 'package:get/get.dart';
 
-import '../components/my_container.dart';
-import '../config/remote_config.dart' as CONFIG;
+import '../../components/my_container.dart';
+import '../../config/remote_config.dart' as CONFIG;
+import 'category_sets.dart';
 
 class ExamsCategories extends StatelessWidget {
   const ExamsCategories({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +29,7 @@ class ExamsCategories extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: (){
-                          Get.to(QuizPractice(mainCategory:"exams", subCategory:CONFIG.exams.keys.elementAt(index)));
+                          Get.to(CategorySets(category: CONFIG.exams.keys.elementAt(index),));
                         },
                         child: Container(
                           padding: EdgeInsets.only(left: 15),

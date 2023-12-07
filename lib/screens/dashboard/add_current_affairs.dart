@@ -20,6 +20,26 @@ class _AddCurrentAffairsState extends State<AddCurrentAffairs> {
 
   List options=[];
 
+  int totalQuestions = 0;
+  String collectionIndex = "6";
+
+
+  @override
+  void initState() {
+    getLength();
+    super.initState();
+  }
+
+  getLength() async {
+    CollectionReference ref = FirebaseFirestore.instance.collection("exams")
+        .doc("ssc").collection(collectionIndex);
+    AggregateQuerySnapshot result = await ref.count().get();
+    setState(() {
+      totalQuestions = result.count ;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,13 +51,26 @@ class _AddCurrentAffairsState extends State<AddCurrentAffairs> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text("Collection - $collectionIndex : Questions - $totalQuestions"),
                 SizedBox(height: 15,),
                 Text("Enter Question"),
                 SizedBox(height: 8,),
-                MyTextField(
-                  // height: 50,
-                  width: 340,
-                  controller:_questionController,
+                TextFormField(
+                  controller: _questionController,
+                  cursorColor: Colors.black45,
+                  style: TextStyle(
+                      color: Colors.black54
+                  ),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey.withAlpha(20),
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(12)
+                    ),
+                  ),
+                  maxLines: 4,
+                  minLines: 2,
                 ),
                 SizedBox(height: 15,),
 
@@ -105,15 +138,19 @@ class _AddCurrentAffairsState extends State<AddCurrentAffairs> {
                         }
                         else{
                          try{
-                           FirebaseFirestore.instance.collection("geography").doc("geography").collection("universe").add(
+                           FirebaseFirestore.instance.collection("exams").doc("ssc").collection(collectionIndex).add(
                                Question(
                                  question:_questionController.text.trim(),
                                  options: options,
                                  answer: _answerController.text.trim(),
                                ).toMap()
                            );
-                           Get.back();
-
+                           Get.snackbar("Status", "Question Added");
+                           setState(() {
+                             _questionController.text ="";
+                             _answerController.text = "";
+                             options =[];
+                           });
                          }
                          catch(e){
                            print(e);

@@ -10,9 +10,9 @@ import '../components/appbar.dart';
 import '../components/my_container.dart';
 import '../config/remote_config.dart' as CONFIG;
 import '../helpers/txt_format.dart';
-import 'exams_categories.dart';
+import 'exams/exams_categories.dart';
 import 'one_line_questions.dart';
-import 'one_line_questions_sets.dart';
+import 'questions_sets.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -60,7 +60,7 @@ class Home extends StatelessWidget {
                       height: 115,
                       child: GestureDetector(
                         onTap: (){
-                          Get.to(ExamsCategories());
+                           Get.to(ExamsCategories());
                         },
                         child: MyContainer(
                           ml: 5, pt: 12, pb: 12,
@@ -118,7 +118,7 @@ class Home extends StatelessWidget {
                       mb: 15, pl: 12, pr: 10,pt:10, pb:10,
                       color: Colors.green.withAlpha(70),
                       child: GestureDetector(
-                        onTap: ()=>Get.to(OneLineQuestionsSets()),
+                        onTap: ()=>Get.to(QuestionsSets(setNumber: 'oneLineQuestionsSets',)),
                         child: Container(
                           padding: EdgeInsets.only(left: 15),
                           height: 70,

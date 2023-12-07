@@ -29,6 +29,7 @@ class _OneLineReadingQuestionsState extends State<OneLineReadingQuestions> {
           catch(e){}
           if(snapshot.hasData){
             return ListView.builder(
+
               shrinkWrap: true,
               itemCount: questions.length,
               itemBuilder: (BuildContext context, int index) {

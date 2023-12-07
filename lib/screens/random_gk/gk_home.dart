@@ -29,6 +29,7 @@ class GkHome extends StatelessWidget {
               Get.to(OneLineReadingQuestions(category:CONFIG.OneLineReading[index],));
             },
             child: MyContainer(
+              pr: 10, pl: 15,
                 color: Colors.green.withAlpha(70),
                 child: Center(child: Text(txt(CONFIG.OneLineReading[index]),style: Theme.of(context).textTheme.titleMedium,),)
             ),
