@@ -43,12 +43,12 @@ class _AddQuestionsState extends State<AddQuestions> {
 
     /// This function is use for data arrangement ///
      Future dataUpdate() async {
-      CollectionReference ref = FirebaseFirestore.instance.collection('science').doc("science").collection("biology");
+      CollectionReference ref = FirebaseFirestore.instance.collection('history').doc("  ").collection("");
       QuerySnapshot result = await ref.get();
 
        result.docs.forEach((element) {
          print(element["question"]);
-         FirebaseFirestore.instance.collection("science").doc("biology").collection("biology").add({
+         FirebaseFirestore.instance.collection("history").doc("vedic_Age").collection("").add({
            "question":element["question"],
            "options":element["options"],
            "answer":element["answer"]
@@ -56,8 +56,6 @@ class _AddQuestionsState extends State<AddQuestions> {
        });
       print("done... ");
     }
-
-
 
 
   @override

@@ -1,37 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:general_knowledge_gk/screens/quiz/quiz_test.dart';
 import 'package:general_knowledge_gk/services/buy_quiz.dart';
+import 'package:get/get.dart';
 
 import '../../services/check_unlock_quiz.dart';
 
 class QuizIntro extends StatefulWidget {
-  String QuizName;
-  String QuizImgUrl;
-  String QuizTopics;
-  String QuizDuration;
-  String QuizAbout;
-  String QuizId;
-  String QuizPrice;
-  QuizIntro({
-    required this.QuizAbout,
-    required this.QuizDuration,
-    required this.QuizImgUrl,
-    required this.QuizName,
-    required this.QuizTopics,
-    required this.QuizId,
-    required this.QuizPrice
-  });
+   var quiz;
+  QuizIntro({ required this.quiz });
 
   @override
   _QuizIntroState createState() => _QuizIntroState();
 }
 
-
-
 class _QuizIntroState extends State<QuizIntro> {
 
   bool quizIsUnlcoked = false;
   getQuizUnlockStatus() async{
-    await CheckQuizUnlock.checkQuizUnlockStatus(widget.QuizId).then((unlockStatus){
+    await CheckQuizUnlock.checkQuizUnlockStatus(widget.quiz["quizId"]).then((unlockStatus){
       setState(() {
         quizIsUnlcoked = unlockStatus;
       });
@@ -50,9 +36,9 @@ class _QuizIntroState extends State<QuizIntro> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: ElevatedButton(child: Text( quizIsUnlcoked ?  "START QUIZ" : "UNLOCK QUIZ" , style: TextStyle(fontSize: 20),), onPressed: (){
         quizIsUnlcoked ?
-        print("QUIZ IS ALREADY UNLOCKED")
+        Get.to( QuizTest(questions:widget.quiz["questions"]))
             :
-        BuyQuiz.buyQuiz(QuizID: widget.QuizId , QuizPrice: int.parse(widget.QuizPrice )).then((quizKharidLiya){
+        BuyQuiz.buyQuiz(QuizID: widget.quiz["quizId"] , QuizPrice: 100 ).then((quizKharidLiya){
           if(quizKharidLiya){
             setState(() {
               quizIsUnlcoked = true;
@@ -85,11 +71,11 @@ class _QuizIntroState extends State<QuizIntro> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(widget.QuizName , textAlign: TextAlign.center, style: TextStyle(fontSize: 30 , fontWeight: FontWeight.w500),)
+                    Text(widget.quiz["title"] , textAlign: TextAlign.center, style: TextStyle(fontSize: 30 , fontWeight: FontWeight.w500),)
                   ],),),
 
 
-              Image.network(widget.QuizImgUrl, fit: BoxFit.cover, height: 230 , width: MediaQuery.of(context).size.width,),
+              Image.network("", fit: BoxFit.cover, height: 230 , width: MediaQuery.of(context).size.width,),
               Container(
                 padding: EdgeInsets.all(18),
                 child:
@@ -103,7 +89,7 @@ class _QuizIntroState extends State<QuizIntro> {
                         Text("Related To -" , style: TextStyle(fontSize: 20 , fontWeight: FontWeight.bold),)
                       ],
                     ),
-                    Text(widget.QuizTopics , style: TextStyle(fontSize: 17),)
+                    Text(widget.quiz["description"] , style: TextStyle(fontSize: 17),)
                   ],),
               ) ,
               Container(
@@ -120,7 +106,7 @@ class _QuizIntroState extends State<QuizIntro> {
                         Text("Duration -" , style: TextStyle(fontSize: 20 , fontWeight: FontWeight.bold),)
                       ],
                     ),
-                    Text("${widget.QuizDuration} Minutes" ,textAlign: TextAlign.left, style: TextStyle(fontSize: 17),)
+                    Text("20 Minutes" ,textAlign: TextAlign.left, style: TextStyle(fontSize: 17),)
                   ],),
               ) ,
               Container(
@@ -136,7 +122,7 @@ class _QuizIntroState extends State<QuizIntro> {
                         Text("About Quiz -" , style: TextStyle(fontSize: 20 , fontWeight: FontWeight.bold),)
                       ],
                     ),
-                    Text(widget.QuizAbout , style: TextStyle(fontSize: 17),)
+                    Text("About quiz" , style: TextStyle(fontSize: 17),)
                   ],),
               )
             ],)

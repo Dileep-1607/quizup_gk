@@ -4,9 +4,15 @@ class BuyQuiz{
   static  Future<bool> buyQuiz({required int QuizPrice ,required String QuizID}) async{
 
     if(QuizPrice <= SESSION.coins){
-      await FirebaseFirestore.instance.collection("users").doc(SESSION.uid).collection("unlocked_quiz").doc(QuizID).set(
-          {"unlcoked_at" : DateTime.now()}
-      );
+     try{
+       await FirebaseFirestore.instance.collection("users").doc(SESSION.uid).collection("unlocked_quiz").doc(QuizID).set(
+           {"unlcoked_at" : DateTime.now()}
+       );
+      SESSION.coins = SESSION.coins - QuizPrice;
+     }
+     catch(error){
+       print("Error: $error");
+     }
       ///DO YOUR TASK HERE
       print("QUIZ IS UNLOCKED NOW");
       return true;

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:general_knowledge_gk/global/global.dart' as GLOBAL;
 import 'package:general_knowledge_gk/screens/quiz/quiz_sets.dart';
 import 'package:get/get.dart';
-import '../../components/appDrawer.dart';
-import '../../components/appbar.dart';
 import '../../components/my_container.dart';
 import '../../helpers/txt_format.dart';
 
@@ -34,7 +32,7 @@ class _QuizCategoriesState extends State<QuizCategories> {
 
               return InkWell(
                 onTap: (){
-                  Get.to(QuizSets());
+                  Get.to(QuizSets(category: GLOBAL.categories[index],));
                 },
                 child: MyContainer(
                    pl: 15,

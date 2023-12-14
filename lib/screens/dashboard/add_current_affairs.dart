@@ -21,18 +21,18 @@ class _AddCurrentAffairsState extends State<AddCurrentAffairs> {
   List options=[];
 
   int totalQuestions = 0;
-  String collectionIndex = "6";
+  String collectionIndex = "1";
 
 
   @override
   void initState() {
-    getLength();
+    //getLength();
     super.initState();
   }
 
   getLength() async {
     CollectionReference ref = FirebaseFirestore.instance.collection("exams")
-        .doc("ssc").collection(collectionIndex);
+        .doc("banking").collection(collectionIndex);
     AggregateQuerySnapshot result = await ref.count().get();
     setState(() {
       totalQuestions = result.count ;
@@ -138,7 +138,7 @@ class _AddCurrentAffairsState extends State<AddCurrentAffairs> {
                         }
                         else{
                          try{
-                           FirebaseFirestore.instance.collection("exams").doc("ssc").collection(collectionIndex).add(
+                           FirebaseFirestore.instance.collection("history").doc("").collection("south_India").add(
                                Question(
                                  question:_questionController.text.trim(),
                                  options: options,
