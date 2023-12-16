@@ -3,19 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:general_knowledge_gk/global/session.dart' as SESSION;
-import 'package:intl/intl.dart';
-
 import '../../components/c_text.dart';
-import '../../models/question.dart';
 import '../home.dart';
 
 class ResultScreen extends StatefulWidget {
  // final String title;
+  String passOrFail;
+  String quizId;
   int points;
   final Map<int,dynamic> answer;
    final List listQuestion;
 
-  ResultScreen({Key? key,required this.listQuestion, required this.answer, this.points = 0}) : super(key: key);
+  ResultScreen({Key? key,required this.listQuestion, required this.answer, this.points = 0, required this.quizId, this.passOrFail =''}) : super(key: key);
 
 
   @override
@@ -40,14 +39,6 @@ class _ResultScreenState extends State<ResultScreen> {
     // TODO: implement initState
     super.initState();
     initializeDateFormatting();
-    widget.answer.forEach((key, value) {
-      // if (widget.listQuestion[key].answer == value) {
-      //   correct ++;
-      //   score +=10;
-      // }else{
-      //   incorrect ++;
-      // }
-    });
     updateCoins();
   }
 
@@ -61,6 +52,9 @@ class _ResultScreenState extends State<ResultScreen> {
       "coins":coins
     });
     SESSION.coins = coins;
+    await FirebaseFirestore.instance.collection("users").doc(SESSION.uid).collection("unlocked_quiz").doc(widget.quizId).update(
+        {"your_status" : "pass"}
+    );
   }
   catch(e){
     print(e);
@@ -177,7 +171,8 @@ class _ResultScreenState extends State<ResultScreen> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              Text("${(widget.points/3).floor()}  correct"),
+                              widget.passOrFail=="pass"?
+                              Text("${widget.points}  correct"):Text("${(widget.points/3).floor()}  correct"),
                             ],
                           ),
                           shape: RoundedRectangleBorder(
@@ -197,7 +192,8 @@ class _ResultScreenState extends State<ResultScreen> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              Text("${widget.listQuestion.length-(widget.points/3)} incorrect"),
+                              widget.passOrFail=="pass"? Text("${widget.listQuestion.length-widget.points} incorrect"):
+                              Text("${widget.listQuestion.length-(widget.points/3)} incorrect")
                             ],
                           ),
                           shape: RoundedRectangleBorder(

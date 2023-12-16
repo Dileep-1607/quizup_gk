@@ -154,7 +154,7 @@ class _AddQuizQuestionsState extends State<AddQuizQuestions> {
                   print("Please enter Quiz descriotion");
 
                 }
-                else if(questions.length !=10){
+                else if(questions.length !=20){
                   print("please check questions, add 20 questions only");
                 }
                 else {
@@ -163,7 +163,8 @@ class _AddQuizQuestionsState extends State<AddQuizQuestions> {
                    FirebaseFirestore.instance.collection("quiz").doc("history").collection("history").add({
                      "title":_titleController.text.trim(),
                      "description":_descriptionController.text.trim(),
-                     "questions":questions
+                     "questions":questions,
+                     "your_status":"",
                    }).then((docRef) {
                      FirebaseFirestore.instance.collection("quiz").doc("history").collection("history").doc(docRef.id).update({
                        "quizId":docRef.id,

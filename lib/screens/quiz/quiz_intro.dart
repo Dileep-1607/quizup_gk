@@ -36,7 +36,7 @@ class _QuizIntroState extends State<QuizIntro> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: ElevatedButton(child: Text( quizIsUnlcoked ?  "START QUIZ" : "UNLOCK QUIZ" , style: TextStyle(fontSize: 20),), onPressed: (){
         quizIsUnlcoked ?
-        Get.to( QuizTest(questions:widget.quiz["questions"]))
+        Get.to( QuizTest(questions:widget.quiz["questions"], quizId:widget.quiz["quizId"],))
             :
         BuyQuiz.buyQuiz(QuizID: widget.quiz["quizId"] , QuizPrice: 100 ).then((quizKharidLiya){
           if(quizKharidLiya){

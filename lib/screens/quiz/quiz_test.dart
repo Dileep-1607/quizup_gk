@@ -1,19 +1,19 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:general_knowledge_gk/models/question.dart';
 import 'package:general_knowledge_gk/screens/quiz/result_screen.dart';
 import 'package:get/get.dart';
-
+import 'package:general_knowledge_gk/global/session.dart' as SESSION;
 import '../../components/c_text.dart';
+import 'fail.dart';
 
 
 class QuizTest extends StatefulWidget {
+  String quizId;
   var questions;
 
-   QuizTest({Key? key, required this.questions}) : super(key: key);
+   QuizTest({Key? key, required this.questions, required this.quizId}) : super(key: key);
 
   @override
   State<QuizTest> createState() => _QuizTestState();
@@ -28,7 +28,8 @@ class _QuizTestState extends State<QuizTest> {
   var isLoaded = false;
   var optionsList = [];
   List questionsList =[];
-
+  bool optionCliecked = true;
+  String passOrFail="";
   Map<int, dynamic> answers ={};
 
   var optionsColor = [
@@ -39,16 +40,20 @@ class _QuizTestState extends State<QuizTest> {
     Colors.white,
   ];
 
-  var _idd;
   @override
   void initState() {
     super.initState();
-
-
+    getUserStatus();
     startTimer();
   }
 
+getUserStatus() async{
+  var res =  await FirebaseFirestore.instance.collection("users").doc(SESSION.uid).collection("unlocked_quiz").doc(widget.quizId).get();
+  var result =  res.data();
+  passOrFail = result!["your_status"];
+  print(passOrFail);
 
+}
 
   @override
   void dispose() {
@@ -85,6 +90,7 @@ class _QuizTestState extends State<QuizTest> {
     timer!.cancel();
     seconds = 30;
     startTimer();
+
   }
 
   @override
@@ -177,27 +183,46 @@ class _QuizTestState extends State<QuizTest> {
 
                       return GestureDetector(
                         onTap: () {
-                          setState(() {
-                            if (widget.questions[currentQuestionIndex]["answer"] ==
-                                optionsList[index].toString()) {
-                              optionsColor[index] = Colors.green;
-                              points = points + 3;
-                              answers[index] = optionsList[index].toString();
-                            } else {
-                              optionsColor[index] = Colors.red;
-                              answers[index] = optionsList[index].toString();
-                            }
+                         if(optionCliecked){
+                           optionCliecked = false;
+                           setState(() {
+                             if (widget.questions[currentQuestionIndex]["answer"] ==
+                                 optionsList[index].toString()) {
+                               optionsColor[index] = Colors.green;
+                               if(passOrFail=="pass"){
+                                 points = points + 1;
+                               }
+                               else{
+                                 points = points + 3;
+                               }
 
-                            if (currentQuestionIndex < widget.questions.length - 1) {
-                              Future.delayed(const Duration(seconds: 1), () {
-                                gotoNextQuestion();
-                              });
-                            } else {
-                              timer!.cancel();
-                              Get.off(ResultScreen(listQuestion: widget.questions, answer:answers, points: points));
-                              //here you can do whatever you want with the results
-                            }
-                          });
+                               answers[index] = optionsList[index].toString();
+                             } else {
+                               optionsColor[index] = Colors.red;
+                               answers[index] = optionsList[index].toString();
+                             }
+
+                             if (currentQuestionIndex < widget.questions.length - 1) {
+                               Future.delayed(const Duration(seconds: 1), () {
+                                 gotoNextQuestion();
+                                 optionCliecked = true;
+                               });
+                             } else {
+                               timer!.cancel();
+                               if(15 <=points){
+                                 Get.off(ResultScreen(listQuestion: widget.questions, answer:answers, points: points, quizId:widget.quizId,));
+                                 //here you can do whatever you want with the results
+                               }
+                               else if(passOrFail=="pass"){
+                                 Get.off(ResultScreen(listQuestion: widget.questions, answer:answers, points: points, quizId:widget.quizId, passOrFail:passOrFail));
+                               }
+                               else{
+                                 Get.off(Fail());
+                               }
+
+                             }
+                           });
+                         }
                         },
                         child: Container(
                           margin: const EdgeInsets.only(bottom: 20),
