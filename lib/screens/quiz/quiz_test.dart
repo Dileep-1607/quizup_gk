@@ -50,7 +50,7 @@ class _QuizTestState extends State<QuizTest> {
 getUserStatus() async{
   var res =  await FirebaseFirestore.instance.collection("users").doc(SESSION.uid).collection("unlocked_quiz").doc(widget.quizId).get();
   var result =  res.data();
-  passOrFail = result!["your_status"];
+  passOrFail = result!["pass_or_fail"];
   print(passOrFail);
 
 }

@@ -75,7 +75,7 @@ class _QuizIntroState extends State<QuizIntro> {
                   ],),),
 
 
-              Image.network("", fit: BoxFit.cover, height: 230 , width: MediaQuery.of(context).size.width,),
+             // Image.network("", fit: BoxFit.cover, height: 230 , width: MediaQuery.of(context).size.width,),
               Container(
                 padding: EdgeInsets.all(18),
                 child:
@@ -86,10 +86,10 @@ class _QuizIntroState extends State<QuizIntro> {
                       children: [
                         Icon(Icons.topic_outlined),
                         SizedBox(width: 6,),
-                        Text("Related To -" , style: TextStyle(fontSize: 20 , fontWeight: FontWeight.bold),)
+                        Text("Related To -" , style: TextStyle(fontSize: 16 , fontWeight: FontWeight.bold),)
                       ],
                     ),
-                    Text(widget.quiz["description"] , style: TextStyle(fontSize: 17),)
+                    Text(widget.quiz["description"] , style: TextStyle(fontSize: 18),)
                   ],),
               ) ,
               Container(
@@ -103,10 +103,9 @@ class _QuizIntroState extends State<QuizIntro> {
                       children: [
                         Icon(Icons.topic_outlined),
                         SizedBox(width: 6,),
-                        Text("Duration -" , style: TextStyle(fontSize: 20 , fontWeight: FontWeight.bold),)
+                        Text("Duration - 20 Minutes" , style: TextStyle(fontSize: 16 , fontWeight: FontWeight.bold),)
                       ],
                     ),
-                    Text("20 Minutes" ,textAlign: TextAlign.left, style: TextStyle(fontSize: 17),)
                   ],),
               ) ,
               Container(
@@ -119,7 +118,7 @@ class _QuizIntroState extends State<QuizIntro> {
                       children: [
                         Icon(Icons.topic_outlined),
                         SizedBox(width: 6,),
-                        Text("About Quiz -" , style: TextStyle(fontSize: 20 , fontWeight: FontWeight.bold),)
+                        Text("About Quiz -" , style: TextStyle(fontSize: 16 , fontWeight: FontWeight.bold),)
                       ],
                     ),
                     Text("About quiz" , style: TextStyle(fontSize: 17),)

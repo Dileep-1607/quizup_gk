@@ -80,6 +80,42 @@ class Home extends StatelessWidget {
                     ),
                   ],
                 ),
+                /// state wise GK///
+
+                // MyContainer(h: 100, w: MediaQuery.of(context).size.width,
+                //  mt: 15, pl: 14,
+                //   color: Colors.green.withAlpha(70),
+                //   child: Row(
+                //     children: [
+                //       GestureDetector(
+                //         onTap: (){
+                //           Get.to(SubCategory(mainCategory: '',));
+                //         },
+                //         child: Container(
+                //           padding: EdgeInsets.only(left: 15),
+                //           height: 80,
+                //           width: MediaQuery.of(context).size.width-70,
+                //           decoration: const BoxDecoration(
+                //             color: Colors.white38,
+                //             borderRadius: BorderRadius.all(Radius.circular(12)),
+                //           ),
+                //           child: Column(
+                //             crossAxisAlignment: CrossAxisAlignment.start,
+                //             mainAxisAlignment: MainAxisAlignment.start,
+                //             children: [
+                //               //  Image.asset("assets/icons/${GLOBAL.all_category[widget.mainCategory]![index]}.png", height: 45, width: 45,),
+                //               SizedBox(height: 12,),
+                //               Text( "State Wise GK", style: Theme.of(context).textTheme.titleMedium,),
+                //               SizedBox(height: 4,),
+                //               Text("Description here ", style: Theme.of(context).textTheme.bodyLarge,),
+                //
+                //             ],
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
 
                 /// Quiz Container ///
                    SizedBox(height: 20,),

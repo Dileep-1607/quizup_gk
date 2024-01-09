@@ -138,7 +138,7 @@ class _AddCurrentAffairsState extends State<AddCurrentAffairs> {
                         }
                         else{
                          try{
-                           FirebaseFirestore.instance.collection("history").doc("mughal_Dynasty").collection("mughal_Dynasty").add(
+                           FirebaseFirestore.instance.collection("computer").doc("computer_hardware").collection("computer_hardware").add(
                                Question(
                                  question:_questionController.text.trim(),
                                  options: options,

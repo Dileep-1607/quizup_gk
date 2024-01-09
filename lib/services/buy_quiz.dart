@@ -6,7 +6,11 @@ class BuyQuiz{
     if(QuizPrice <= SESSION.coins){
      try{
        await FirebaseFirestore.instance.collection("users").doc(SESSION.uid).collection("unlocked_quiz").doc(QuizID).set(
-           {"unlcoked_at" : DateTime.now()}
+           {
+             "unlcoked_at" : DateTime.now(),
+             "pass_or_fail":""
+
+           }
        );
       SESSION.coins = SESSION.coins - QuizPrice;
      }

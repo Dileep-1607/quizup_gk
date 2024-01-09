@@ -25,7 +25,7 @@ Future<void> main() async{
 }
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({super.key}); 
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,7 @@ class AuthGate extends StatelessWidget {
 
     print("THis is user detail");
     SESSION.username = result['username'];
-    SESSION.uid = result['uid'];
+    SESSION.uid = result['uid']; 
     SESSION.email = result['email'];
     SESSION.coins = result['coins'];
     return true;

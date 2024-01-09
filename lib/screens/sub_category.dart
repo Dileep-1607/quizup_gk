@@ -1,14 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:general_knowledge_gk/screens/quiz_practice.dart';
-import 'package:general_knowledge_gk/screens/quiz/quiz_test.dart';
 import 'package:get/get.dart';
 import '../components/c_text.dart';
 import '../components/my_container.dart';
-import '../components/start_quiz_card.dart';
 import '../config/remote_config.dart';
 import '../helpers/txt_format.dart';
-import '../config/remote_config.dart' as CONFIG;
+
 
 class SubCategory extends StatefulWidget {
   String mainCategory;

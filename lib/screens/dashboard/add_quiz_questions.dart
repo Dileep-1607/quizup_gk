@@ -164,7 +164,7 @@ class _AddQuizQuestionsState extends State<AddQuizQuestions> {
                      "title":_titleController.text.trim(),
                      "description":_descriptionController.text.trim(),
                      "questions":questions,
-                     "your_status":"",
+                     "date":DateTime.now(),
                    }).then((docRef) {
                      FirebaseFirestore.instance.collection("quiz").doc("history").collection("history").doc(docRef.id).update({
                        "quizId":docRef.id,

@@ -53,7 +53,7 @@ class _ResultScreenState extends State<ResultScreen> {
     });
     SESSION.coins = coins;
     await FirebaseFirestore.instance.collection("users").doc(SESSION.uid).collection("unlocked_quiz").doc(widget.quizId).update(
-        {"your_status" : "pass"}
+        {"pass_or_fail" :"pass"}
     );
   }
   catch(e){
@@ -193,7 +193,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                 width: 10,
                               ),
                               widget.passOrFail=="pass"? Text("${widget.listQuestion.length-widget.points} incorrect"):
-                              Text("${widget.listQuestion.length-(widget.points/3)} incorrect")
+                              Text("${widget.listQuestion.length-(widget.points/3).floor()} incorrect")
                             ],
                           ),
                           shape: RoundedRectangleBorder(
